@@ -33,6 +33,11 @@ namespace Dabrorius.MonoPunk
 			
 		}
 		
+		public static float Degs2Rad(float degrees)
+		{
+			return ( degrees / 180 * ( (float) Math.PI ) );
+		}
+		
 		internal static World currentWorld;
 		internal static World nextWorld;
 	}

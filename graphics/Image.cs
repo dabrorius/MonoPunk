@@ -56,7 +56,7 @@ namespace Dabrorius.MonoPunk
 			point.X += OriginX;
 			point.Y += OriginY;
 			Vector2 scale = new Vector2(ScaleX * Scale,ScaleY*Scale);
-			target.Draw( texture, point, clipRect, Color.White, Angle,
+			target.Draw( texture, point, clipRect, Color.White, MP.Degs2Rad(Angle),
         				scale, 1.0f, SpriteEffects.None, 0f );
 			
 		}
