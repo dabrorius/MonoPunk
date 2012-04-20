@@ -118,13 +118,12 @@ namespace Dabrorius.MonoPunk
 			{
 				foreach (Entity e in toAdd)
 				{
-					//if (e._world)
-					//	continue;
+					if (e.world != null) continue;
 					
 					addUpdate(e);
 					addRender(e);
 					
-					//if (e._type) addType(e);
+					if (e.type != null) addType(e);
 					//if (e._name) registerName(e);
 					
 					e.world = this;
@@ -158,7 +157,7 @@ namespace Dabrorius.MonoPunk
 		}
 		
 		/** @private Adds Entity to the render list. */
-		private void addRender(Entity e)
+		internal void addRender(Entity e)
 		{
 			if (renderFirst.ContainsKey(e.layer))
 			{
@@ -182,6 +181,29 @@ namespace Dabrorius.MonoPunk
 			e.renderPrev = null;
 		}
 		
+		/** @private Removes Entity from the render list. */
+		internal void removeRender(Entity e)
+		{
+			if (e.renderNext != null) e.renderNext.renderPrev = e.renderPrev;
+			else renderLast[e.layer] = e.renderPrev;
+			if (e.renderPrev != null) e.renderPrev.renderNext = e.renderNext;
+			else
+			{
+				// Remove this entity from the layer.
+				renderFirst[e.layer] = e.renderNext;
+				if (e.renderNext == null)
+				{
+					// Remove the layer from the layer list if this was the last entity.
+					if (layerList.Count > 1)
+					{
+						layerList.Remove(e.Layer);
+						layerSort = true;
+					}
+				}
+			}
+			layerCount[e.layer] --;
+			e.renderNext = e.renderPrev = null;
+		}
 		
 		
 		/** @private Adds Entity to the update list. */
@@ -200,6 +222,50 @@ namespace Dabrorius.MonoPunk
 			/* TO-DO class count*/
 		}
 		
+		/** @private Removes Entity from the update list. */
+		private void removeUpdate(Entity e)
+		{
+			// remove from the update list
+			if (updateFirst == e) updateFirst = e.updateNext;
+			if (e.updateNext != null) e.updateNext.updatePrev = e.updatePrev;
+			if (e.updatePrev != null) e.updatePrev.updateNext = e.updateNext;
+			e.updateNext = e.updatePrev = null;
+			
+			count --;
+			//classCount[e.class] --;
+		}
+		
+		/** @private Adds Entity to the type list. */
+		internal void addType(Entity e)
+		{
+			// add to type list
+			if( typeFirst.ContainsKey(e.type) )
+			{
+				typeFirst[e.type].typePrev = e;
+				e.typeNext = typeFirst[e.type];
+				typeCount[e.type]++;
+			}
+			else
+			{
+				e.typeNext = null;
+				typeCount[e.type] = 1;
+			}
+			e.typePrev = null;
+			typeFirst[e.type] = e;
+		}
+		
+		/** @private Removes Entity from the type list. */
+		internal void removeType(Entity e)
+		{
+			// remove from the type list
+			if (typeFirst[e.type] == e) typeFirst[e.type] = e.typeNext;
+			if (e.typeNext != null) e.typeNext.typePrev = e.typePrev;
+			if (e.typePrev != null) e.typePrev.typeNext = e.typeNext;
+			e.typeNext = e.typePrev = null;
+			typeCount[e.type] --;
+		}
+		
+		
 		// Adding and removal.
 		private List<Entity> toAdd = new List<Entity>();
 		private List<Entity> toRemove = new List<Entity>();
@@ -214,6 +280,8 @@ namespace Dabrorius.MonoPunk
 		private Dictionary<int,Entity> renderLast = new Dictionary<int,Entity>();
 		private Dictionary<int,int> layerCount = new Dictionary<int,int>();
 		private List<int> layerList = new List<int>();
+		private Dictionary<String,Entity> typeFirst = new Dictionary<String, Entity>();
+		private Dictionary<String,int> typeCount = new Dictionary<String, int>();
 
 		private Boolean layerSort;
 	}

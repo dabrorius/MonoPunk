@@ -42,9 +42,9 @@ namespace Dabrorius.MonoPunk
 		
 		/* TO-DO Hitbox Origin */
 		
-		public Entity ()
+		public Entity (float x = 0, float y = 0)
 		{
-			Position = new Vector2(0,0);
+			Position = new Vector2(x,y);
 			Visible = true;
 			Active = true;
 		}
@@ -64,6 +64,53 @@ namespace Dabrorius.MonoPunk
 			// to override
 		}
 		
+		
+		/**
+		 * The rendering layer of this Entity. Higher layers are rendered first.
+		 */
+		public int Layer
+		{
+			get { return layer;}
+			set 
+			{
+				if( layer == value) return;
+				if( world == null )
+				{
+					layer = value;
+					return;
+				}
+				world.removeRender(this);  
+				layer = value;
+				world.addRender(this);
+			}
+			
+		}
+
+		
+		/**
+		 * The collision type, used for collision checking.
+		 */
+		public String Type 
+		{
+			get { return type; }
+			set
+			{
+				if( type == value ) return;
+				if( world == null )
+				{
+					type = value;
+					return;
+				}
+				if( type != null ) world.removeType(this);
+				type = value;
+				if( value != null ) world.addType(this);
+			}
+		}
+
+		
+		/**
+		 * Graphical component to render to the screen.
+		 */
 		public Graphic Graphic
 		{
 			get {return graphic;}
@@ -80,6 +127,10 @@ namespace Dabrorius.MonoPunk
 		
 		
 		internal World world;
+		internal String type;
+		internal Entity typePrev;
+		internal Entity typeNext;
+		
 		internal Entity renderPrev;
 		internal Entity renderNext;
 		internal Entity updatePrev;

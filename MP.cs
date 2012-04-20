@@ -38,8 +38,16 @@ namespace Dabrorius.MonoPunk
 			return ( degrees / 180 * ( (float) Math.PI ) );
 		}
 		
+		public static int Rand(int amount)
+		{
+			return random.Next(0, amount);
+		}
+		
 		internal static World currentWorld;
 		internal static World nextWorld;
+		
+		private static Random random = new Random();
+
 	}
 
 	

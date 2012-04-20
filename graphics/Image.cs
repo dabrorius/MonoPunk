@@ -53,11 +53,10 @@ namespace Dabrorius.MonoPunk
 		override public void Render(SpriteBatch target, Vector2 point, Vector2 camera)
 		{
 			if( texture == null) return;
-			point.X += OriginX;
-			point.Y += OriginY;
-			Vector2 scale = new Vector2(ScaleX * Scale,ScaleY*Scale);
+			
+			Vector2 origin = new Vector2(OriginX, OriginY);
 			target.Draw( texture, point, clipRect, Color.White, MP.Degs2Rad(Angle),
-        				scale, 1.0f, SpriteEffects.None, 0f );
+        				origin, 1.0f, SpriteEffects.None, 0f );
 			
 		}
 		
