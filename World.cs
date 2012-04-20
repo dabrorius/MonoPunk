@@ -79,6 +79,17 @@ namespace Dabrorius.MonoPunk
 			return e;
 		}
 		
+		/**
+		 * Removes the Entity from the World at the end of the frame.
+		 * @param	e		Entity object you want to remove.
+		 * @return	The removed Entity object.
+		 */
+		public Entity Remove(Entity e)
+		{
+			toRemove.Add (e);
+			return e;
+		}
+		
 		
 		/**
 		 * Updates the add/remove lists at the end of the frame.
@@ -86,33 +97,34 @@ namespace Dabrorius.MonoPunk
 		public void UpdateLists()
 		{			
 			// remove entities
-			/*
-			if (_remove.length)
+			
+			if (toRemove.Count > 0)
 			{
-				for each (e in _remove)
+				foreach (Entity e in toRemove)
 				{
-					if (!e._world)
+					if (e.world == null)
 					{
-						if(_add.indexOf(e) >= 0)
-							_add.splice(_add.indexOf(e), 1);
-						
+						if( toAdd.Contains(e) )
+						{
+							toAdd.Remove(e);
+						}
 						continue;
 					}
-					if (e._world !== this)
+					if (e.world != this)
 						continue;
 					
-					e.removed();
-					e._world = null;
+					e.Removed();
+					e.world = null;
 					
 					removeUpdate(e);
 					removeRender(e);
-					if (e._type) removeType(e);
-					if (e._name) unregisterName(e);
-					if (e.autoClear && e._tween) e.clearTweens();
+					if (e.type != null) removeType(e);
+					//if (e._name) unregisterName(e);
+					//if (e.autoClear && e._tween) e.clearTweens();
 				}
-				_remove.length = 0;
+				toRemove.Clear();
 			}
-			*/
+			
 			// add entities
 			if (toAdd.Count > 0)
 			{

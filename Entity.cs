@@ -71,6 +71,11 @@ namespace Dabrorius.MonoPunk
 			// to override
 		}
 		
+		public void Removed()
+		{
+			// to override
+		}
+		
 		
 		/**
 		 * The rendering layer of this Entity. Higher layers are rendered first.
