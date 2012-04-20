@@ -280,7 +280,7 @@ namespace Dabrorius.MonoPunk
 		private Dictionary<int,Entity> renderLast = new Dictionary<int,Entity>();
 		private Dictionary<int,int> layerCount = new Dictionary<int,int>();
 		private List<int> layerList = new List<int>();
-		private Dictionary<String,Entity> typeFirst = new Dictionary<String, Entity>();
+		internal Dictionary<String,Entity> typeFirst = new Dictionary<String, Entity>();
 		private Dictionary<String,int> typeCount = new Dictionary<String, int>();
 
 		private Boolean layerSort;

@@ -8,9 +8,9 @@ namespace Dabrorius.MonoPunk
 {
 	public class Entity
 	{
-		public Boolean Visible;
-		public Boolean Active;
-		public Boolean Collidable;
+		public Boolean Visible = true;
+		public Boolean Active = true; // this should be movet to tweener
+		public Boolean Collidable = true;
 		
 		public Vector2 Position;
 		
@@ -40,13 +40,20 @@ namespace Dabrorius.MonoPunk
 			set {Size.Y = value;}
 		}	
 		
-		/* TO-DO Hitbox Origin */
+		/**
+		 * X origin of the Entity's hitbox.
+		 */
+		public int OriginX;
+		
+		/**
+		 * Y origin of the Entity's hitbox.
+		 */
+		public int OriginY;
 		
 		public Entity (float x = 0, float y = 0)
 		{
 			Position = new Vector2(x,y);
-			Visible = true;
-			Active = true;
+
 		}
 		
 		public SpriteBatch renderTarget;
@@ -73,6 +80,7 @@ namespace Dabrorius.MonoPunk
 			get { return layer;}
 			set 
 			{
+				
 				if( layer == value) return;
 				if( world == null )
 				{
@@ -84,6 +92,84 @@ namespace Dabrorius.MonoPunk
 				world.addRender(this);
 			}
 			
+		}
+		
+		/**
+		 * Sets the Entity's hitbox properties.
+		 * @param	width		Width of the hitbox.
+		 * @param	height		Height of the hitbox.
+		 * @param	originX		X origin of the hitbox.
+		 * @param	originY		Y origin of the hitbox.
+		 */
+		public void setHitbox(int width = 0, int height = 0, int originX = 0, int originY = 0)
+		{
+			this.Width = width;
+			this.Height = height;
+			this.OriginX = originX;
+			this.OriginY = originY;
+		}
+		
+			/**
+		 * Checks for a collision against an Entity type.
+		 * @param	type		The Entity type to check for.
+		 * @param	x			Virtual x position to place this Entity.
+		 * @param	y			Virtual y position to place this Entity.
+		 * @return	The first Entity collided with, or null if none were collided.
+		 */
+		public Entity Collide(String type, float x, float y)
+		{
+			
+			if (world == null) return null;
+			
+			Entity e = world.typeFirst[type];
+			if (e == null) return null;
+			
+			_x = this.X; 
+			_y = this.Y;
+			
+			this.X = x; 
+			this.Y = y;
+			
+			if (mask == null)
+			{
+				while (e != null)
+				{
+					if (e.Collidable && e != this
+					&& X - OriginX + Width > e.X - e.OriginX
+					&& Y - OriginY + Height > e.Y - e.OriginY
+					&& X - OriginX < e.X - e.OriginX + e.Width
+					&& Y - OriginY < e.Y - e.OriginY + e.Height)
+					{
+						if (e.mask == null || e.mask.Collide(HITBOX))
+						{
+							this.X = _x; this.Y = _y;
+							return e;
+						}
+					}
+					e = e.typeNext;
+				}
+				this.X = _x; this.Y = _y;
+				return null;
+			}
+			
+			while (e != null)
+			{
+				if (e.Collidable && e != this
+				&& X - OriginX + Width > e.X - e.OriginX
+				&& Y - OriginY + Height > e.Y - e.OriginY
+				&& X - OriginX < e.X - e.OriginX + e.Width
+				&& Y - OriginY < e.Y - e.OriginY + e.Height)
+				{
+					if (mask.Collide(e.mask != null ? e.mask : e.HITBOX))
+					{
+						this.X = _x; this.Y = _y;
+						return e;
+					}
+				}
+				e = e.typeNext;
+			}
+			this.X = _x; this.Y = _y;
+			return null;
 		}
 
 		
@@ -138,6 +224,12 @@ namespace Dabrorius.MonoPunk
 		internal int layer;
 		
 		internal Graphic graphic;
+		
+		private Mask HITBOX = new Mask();
+		private Mask mask;
+		
+		private float _x;
+		private float _y;
 		
 		//private ContentManager contentManager;
 
