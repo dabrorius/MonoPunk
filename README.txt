@@ -9,3 +9,5 @@ Things that work so far:
 - entitiy layers
 - updating entities
 - basic Image class
+- Hitbox collision detection (no support for masks)
+- Keyboard input (NOTE: Key class is replaced with Keys class)

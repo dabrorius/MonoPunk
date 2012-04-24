@@ -66,12 +66,12 @@ namespace Dabrorius.MonoPunk
 			}
 		}
 		
-		public void Added()
+		virtual public void Added()
 		{
 			// to override
 		}
 		
-		public void Removed()
+		virtual public void Removed()
 		{
 			// to override
 		}

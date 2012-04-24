@@ -55,6 +55,9 @@ namespace Dabrorius.MonoPunk
 			if( texture == null) return;
 			
 			Vector2 origin = new Vector2(OriginX, OriginY);
+			
+			point += origin;
+			
 			target.Draw( texture, point, clipRect, Color.White, MP.Degs2Rad(Angle),
         				origin, 1.0f, SpriteEffects.None, 0f );
 			

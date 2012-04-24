@@ -63,8 +63,8 @@ namespace Dabrorius.MonoPunk
 	
 		protected override void Update(GameTime gameTime)
 		{
+			Input.UpdateKeyboardInput();
 			MP.Elapsed = gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-
 			//if (FP.tweener.active && FP.tweener._tween) FP.tweener.updateTweens();
 			if (MP.CurrentWorld.Active)
 			{
@@ -73,7 +73,7 @@ namespace Dabrorius.MonoPunk
 			}
 			MP.CurrentWorld.UpdateLists();
 			if (MP.nextWorld != null) checkWorld();
-			
+			Input.SaveOldKeyboardInput();
 			base.Update (gameTime);
 		}
 		

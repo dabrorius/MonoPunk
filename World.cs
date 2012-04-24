@@ -52,7 +52,7 @@ namespace Dabrorius.MonoPunk
 		 * If you override this to give your World update code, remember
 		 * to call super.update() or your Entities will not be updated.
 		 */
-		public void Update() 
+		virtual public void Update() 
 		{
 			// update the entities
 			Entity e = updateFirst;
@@ -171,7 +171,7 @@ namespace Dabrorius.MonoPunk
 		/** @private Adds Entity to the render list. */
 		internal void addRender(Entity e)
 		{
-			if (renderFirst.ContainsKey(e.layer))
+			if (renderFirst.ContainsKey(e.layer) && renderFirst[e.layer] != null)
 			{
 				Entity f = renderFirst[e.layer] as Entity;
 
@@ -251,7 +251,7 @@ namespace Dabrorius.MonoPunk
 		internal void addType(Entity e)
 		{
 			// add to type list
-			if( typeFirst.ContainsKey(e.type) )
+			if( typeFirst.ContainsKey(e.type) && typeFirst[e.type] != null )
 			{
 				typeFirst[e.type].typePrev = e;
 				e.typeNext = typeFirst[e.type];
