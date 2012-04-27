@@ -126,6 +126,7 @@ namespace Dabrorius.MonoPunk
 			
 			if (world == null) return null;
 			
+			if (! world.typeFirst.ContainsKey(type) ) return null;
 			Entity e = world.typeFirst[type];
 			if (e == null) return null;
 			

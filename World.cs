@@ -30,7 +30,7 @@ namespace Dabrorius.MonoPunk
 		 * If you override this to give your World render code, remember
 		 * to call super.render() or your Entities will not be rendered.
 		 */
-		public void Render() 
+		public virtual void Render() 
 		{
 			// render the entities in order of depth
 			Entity e;
@@ -90,6 +90,19 @@ namespace Dabrorius.MonoPunk
 			return e;
 		}
 		
+		/**
+		 * Removes all Entities from the World at the end of the frame.
+		 */
+		public void RemoveAll()
+		{
+			Entity e = updateFirst;
+			while (e != null)
+			{
+				toRemove.Add(e);
+				e = e.updateNext;
+			}
+		}
+		
 		
 		/**
 		 * Updates the add/remove lists at the end of the frame.
@@ -97,7 +110,8 @@ namespace Dabrorius.MonoPunk
 		public void UpdateLists()
 		{			
 			// remove entities
-			
+
+
 			if (toRemove.Count > 0)
 			{
 				foreach (Entity e in toRemove)
@@ -127,7 +141,7 @@ namespace Dabrorius.MonoPunk
 			
 			// add entities
 			if (toAdd.Count > 0)
-			{
+			{				
 				foreach (Entity e in toAdd)
 				{
 					if (e.world != null) continue;
