@@ -291,6 +291,40 @@ namespace Dabrorius.MonoPunk
 			typeCount[e.type] --;
 		}
 		
+		/**
+		 * Returns the amount of Entities of the type are in the World.
+		 * @param	type		The type (or Class type) to count.
+		 * @return	How many Entities of type exist in the World.
+		 */
+		public int TypeCount(String type)
+		{
+			if( ! typeCount.ContainsKey(type) ) return 0;
+			return typeCount[type];
+		}
+		
+		/**
+		 * Returns the amount of Entities of the Class are in the World.
+		 * @param	c		The Class type to count.
+		 * @return	How many Entities of Class exist in the World.
+		 */
+		/*
+		public function classCount(c:Class):uint
+		{
+			return _classCount[c] as uint;
+		}
+		*/
+		
+		/**
+		 * Returns the amount of Entities are on the layer in the World.
+		 * @param	layer		The layer to count Entities on.
+		 * @return	How many Entities are on the layer.
+		 */
+		public int LayerCount(int layer)
+		{
+			if( ! layerCount.ContainsKey(layer) ) return 0;
+			return layerCount[layer];
+		}
+		
 		
 		// Adding and removal.
 		private List<Entity> toAdd = new List<Entity>();
