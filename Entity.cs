@@ -58,7 +58,7 @@ namespace Dabrorius.MonoPunk
 		
 		public SpriteBatch renderTarget;
 		
-		public void Render()
+		virtual public void Render()
 		{
 			if (graphic != null && graphic.Visible)
 			{
