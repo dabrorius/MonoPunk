@@ -63,7 +63,7 @@ namespace Dabrorius.MonoPunk
 			
 		}
 		
-		private Rectangle clipRect;
+		protected Rectangle clipRect;
 
 	}
 }

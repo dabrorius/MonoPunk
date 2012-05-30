@@ -40,6 +40,7 @@
     <Compile Include="masks\Hitbox.cs" />
     <Compile Include="utils\Input.cs" />
     <Compile Include="graphics\Spritemap.cs" />
+    <Compile Include="graphics\Anim.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame.Framework\MonoGame.Framework.MacOS.csproj">
