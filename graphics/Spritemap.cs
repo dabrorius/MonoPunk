@@ -57,7 +57,7 @@ namespace Dabrorius.MonoPunk
 			index = 0;
 			timer = 0;
 			int setFrame =  frame % (int) anim.frameCount;
-			frame = anim.frames[setFrame];
+			this.frame = (uint) anim.frames[setFrame];
 			Complete = false;
 			updateClipRect();
 			return anim;
