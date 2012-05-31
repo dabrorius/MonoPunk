@@ -50,11 +50,14 @@ namespace Dabrorius.MonoPunk
 		 */
 		public int OriginY;
 		
-		public Entity (float x = 0, float y = 0)
+		public Entity (float x = 0, float y = 0, Graphic graphic = null)
 		{
 			Position = new Vector2(x,y);
 
+			this.graphic = graphic;
 		}
+		
+		
 		
 		public SpriteBatch renderTarget;
 		

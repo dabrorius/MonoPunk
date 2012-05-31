@@ -80,6 +80,22 @@ namespace Dabrorius.MonoPunk
 		}
 		
 		/**
+		 * Adds an Entity to the World with the Graphic object.
+		 * @param	graphic		Graphic to assign the Entity.
+		 * @param	x			X position of the Entity.
+		 * @param	y			Y position of the Entity.
+		 * @param	layer		Layer of the Entity.
+		 * @return	The Entity that was added.
+		 */
+		public Entity AddGraphic(Graphic graphic, int layer = 0, int x = 0, int y = 0)
+		{
+			Entity e = new Entity(x, y, graphic);
+			if (layer != 0) e.layer = layer;
+			//e.active = false;
+			return Add(e);
+		}
+		
+		/**
 		 * Removes the Entity from the World at the end of the frame.
 		 * @param	e		Entity object you want to remove.
 		 * @return	The removed Entity object.

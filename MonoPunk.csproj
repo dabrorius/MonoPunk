@@ -41,6 +41,7 @@
     <Compile Include="utils\Input.cs" />
     <Compile Include="graphics\Spritemap.cs" />
     <Compile Include="graphics\Anim.cs" />
+    <Compile Include="graphics\Backdrop.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame.Framework\MonoGame.Framework.MacOS.csproj">
