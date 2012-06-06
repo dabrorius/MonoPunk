@@ -46,7 +46,7 @@ namespace Dabrorius.MonoPunk
         /**
 	 	 * Updates the Tween, called by World.
 		 */
-        public void update()
+        public virtual void update()
         {
             _time += MP.timeInFrames ? 1 : MP.elapsed;
             _t = _time / _target;
@@ -61,7 +61,7 @@ namespace Dabrorius.MonoPunk
         /**
 	 	 * Starts the Tween, or restarts it if it's currently running.
 		 */
-        public void start()
+        public virtual void start()
         {
             _time = 0;
             if (_target == 0)
