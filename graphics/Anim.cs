@@ -3,7 +3,7 @@ namespace Dabrorius.MonoPunk
 {
 	public class Anim
 	{
-		public Anim(string name, int[] frames, double frameRate, bool loop)
+		public Anim(string name, int[] frames, double frameRate = 0, bool loop = true)
 		{
 			this.name = name;
 			this.frames = frames;

@@ -7,6 +7,7 @@ namespace Dabrorius.MonoPunk
 {
 	public class Spritemap : Image
 	{
+
 		
 		public Spritemap (Texture2D source, int frameWidth = 0, int frameHeight = 0) : base(source)
 		{
@@ -33,6 +34,39 @@ namespace Dabrorius.MonoPunk
 			clipRect.X = (int) (rect.Width * (frame % columns));
 			clipRect.Y = (int) (rect.Height * ((uint) (frame / columns)));
 			//if (flipped) rect.X = (width - rect.Width) - rect.X;
+		}
+		
+		override public void Update() 
+		{
+			if (anim != null && ! Complete)
+			{
+				timer +=  anim.frameRate * MP.Elapsed * rate;
+				if (timer >= 1)
+				{
+					while (timer >= 1)
+					{
+						timer --;
+						index ++;
+						if (index == anim.frameCount)
+						{
+							if (anim.loop)
+							{
+								index = 0;
+								//if (callback != null) callback();
+							}
+							else
+							{
+								index = anim.frameCount - 1;
+								Complete = true;
+								//if (callback != null) callback();
+								break;
+							}
+						}
+					}
+					if (anim != null) frame = (uint) anim.frames[index] ;
+					updateClipRect();
+				}
+			}
 		}
 		
 		public Anim Add(string name, int[] frames, double frameRate = 0, bool loop = true)
@@ -64,6 +98,7 @@ namespace Dabrorius.MonoPunk
 		}
 		
 		public bool Complete;
+		public int rate = 1;
 		
 		private Texture2D texture;
 		

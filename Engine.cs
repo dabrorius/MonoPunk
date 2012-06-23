@@ -15,7 +15,7 @@ namespace Dabrorius.MonoPunk
 		
 		
 		
-		public Engine (int width, int height)
+		public Engine (int width, int height, string assetsDirectory = "./")
 		{
 			MP.Width = width;
 			MP.Height = height;
@@ -27,7 +27,7 @@ namespace Dabrorius.MonoPunk
             //graphics.IsFullScreen = true;
 			graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
-            Content.RootDirectory = "/Users/dabrorius/MonoDevelop/MonoGame-2.5.0.0/TestGame/Assets";
+			Content.RootDirectory = assetsDirectory;
 			Engine.currentEngine = this;
 		}
 		

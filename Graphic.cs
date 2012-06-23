@@ -13,6 +13,11 @@ namespace Dabrorius.MonoPunk
 		{
 		}
 		
+		virtual public void Update()
+		{
+			// to override
+		}
+		
 		virtual public void Render(SpriteBatch target, Vector2 point, Vector2 camera)
 		{
 			// to override
