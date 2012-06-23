@@ -20,6 +20,11 @@ namespace Dabrorius.MonoPunk
 		
 		public static Vector2 Camera;
 		
+		public static float FElapsed
+		{
+			get { return (float) Elapsed; }
+		}
+		
 		public static World CurrentWorld
 		{
 			get {return currentWorld;}

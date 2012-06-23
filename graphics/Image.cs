@@ -36,6 +36,8 @@ namespace Dabrorius.MonoPunk
 		 */
 		public float OriginY = 0;
 		
+		public bool Flipped = false;
+
 		private Texture2D texture;
 		
 		public Image (Texture2D source)
@@ -58,9 +60,9 @@ namespace Dabrorius.MonoPunk
 			
 			point += origin;
 			
-			target.Draw( texture, point, clipRect, Color.White, MP.Degs2Rad(Angle),
-        				origin, 1.0f, SpriteEffects.None, 0f );
 			
+			target.Draw ( texture, point, clipRect, Color.White, MP.Degs2Rad(Angle),
+        				origin, 1.0f, Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f );
 		}
 		
 		protected Rectangle clipRect;

@@ -9,7 +9,7 @@ Things that work so far:
 - entitiy layers
 - updating entities
 - basic Image class
-- static Spritemap
+- basic animated Spritemap
 - basic Background Class
 - Hitbox collision detection (no support for masks)
 - Keyboard input (NOTE: Key class is replaced with Keys class)

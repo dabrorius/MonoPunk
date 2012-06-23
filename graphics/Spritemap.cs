@@ -33,11 +33,12 @@ namespace Dabrorius.MonoPunk
 		{
 			clipRect.X = (int) (rect.Width * (frame % columns));
 			clipRect.Y = (int) (rect.Height * ((uint) (frame / columns)));
-			//if (flipped) rect.X = (width - rect.Width) - rect.X;
 		}
 		
 		override public void Update() 
 		{
+			
+			
 			if (anim != null && ! Complete)
 			{
 				timer +=  anim.frameRate * MP.Elapsed * rate;
@@ -99,7 +100,6 @@ namespace Dabrorius.MonoPunk
 		
 		public bool Complete;
 		public int rate = 1;
-		
 		private Texture2D texture;
 		
 		private Rectangle rect;

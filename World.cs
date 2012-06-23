@@ -63,7 +63,7 @@ namespace Dabrorius.MonoPunk
 					//if (e._tween) e.updateTweens();
 					e.Update();
 				}
-				//if (e._graphic && e._graphic.active) e._graphic.update();
+				if (e.graphic != null /*&& e.graphic.active*/) e.graphic.Update();
 				e = e.updateNext;
 			}
 		}
