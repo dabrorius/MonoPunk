@@ -15,21 +15,30 @@ namespace Dabrorius.MonoPunk
 		
 		
 		
-		public Engine (int width, int height, string assetsDirectory = "./")
+		public Engine (int width, int height, string assetsDirectory = "./") : base()
 		{
 			MP.Width = width;
 			MP.Height = height;
-			MP.currentWorld = new World();
+			MP.currentWorld = new World ();
 			
-			graphics = new GraphicsDeviceManager(this);
-            graphics.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;
-            //graphics.IsFullScreen = true;
-			graphics.PreferredBackBufferWidth = width;
-            graphics.PreferredBackBufferHeight = height;
+			Window.AllowUserResizing = true;
+
+			graphics = new GraphicsDeviceManager (this);
+			graphics.SynchronizeWithVerticalRetrace = false;
+			graphics.PreferredBackBufferWidth = MP.Width;
+			graphics.PreferredBackBufferHeight = MP.Height;
+			graphics.ApplyChanges ();
+			
+			this.IsFixedTimeStep = false;
+			//graphics.IsFullScreen = true;
+			
+			//graphics.ApplyChanges ();
 			Content.RootDirectory = assetsDirectory;
 			Engine.currentEngine = this;
+			
 		}
+		
+	
 		
 		public static Texture2D EmbeddFile(String filename)
 		{
@@ -40,7 +49,6 @@ namespace Dabrorius.MonoPunk
         {
             // Create a new SpriteBatch, which can be used to draw textures
             MP.Buffer = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             //eater.LoadGraphic(Content,"smiley.png");
 			//MP.CurrentWorld.Add (eater);
@@ -61,10 +69,20 @@ namespace Dabrorius.MonoPunk
             base.Draw(gameTime);
         }
 	
-		protected override void Update(GameTime gameTime)
+		protected override void Update (GameTime gameTime)
 		{
-			Input.UpdateKeyboardInput();
+			Input.UpdateKeyboardInput ();
 			MP.Elapsed = gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+			
+			// Write frame rate to console
+			frameRateSum += 1 / MP.Elapsed;
+			frameRateCount += 1;
+			if (frameRateCount == 100) {
+				Console.WriteLine (frameRateSum / frameRateCount);
+				frameRateSum = 0;
+				frameRateCount = 0;
+			}
+			
 			//if (FP.tweener.active && FP.tweener._tween) FP.tweener.updateTweens();
 			if (MP.CurrentWorld.Active)
 			{
@@ -100,6 +118,9 @@ namespace Dabrorius.MonoPunk
 			MP.currentWorld.Begin();
 			MP.currentWorld.UpdateLists();
 		}
+		
+		private double frameRateSum = 0;
+		private int frameRateCount = 0;
 	}
 }
 

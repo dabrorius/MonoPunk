@@ -15,8 +15,8 @@ namespace Dabrorius.MonoPunk
 		public static SpriteBatch Buffer;
 		public static double Elapsed;
 		
-		public static float Width;
-		public static float Height;
+		public static int Width;
+		public static int Height;
 		
 		public static Vector2 Camera;
 		
